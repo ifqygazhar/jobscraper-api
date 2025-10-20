@@ -1,0 +1,91 @@
+[
+  {
+    "domain": "glints.com",
+    "expirationDate": 1763532227.760207,
+    "hostOnly": true,
+    "httpOnly": true,
+    "name": "session",
+    "path": "/",
+    "sameSite": "lax",
+    "secure": true,
+    "session": false,
+    "storeId": null,
+    "value": "Fe26.2**4ec2ee206e1ec20eec44247464f82051584fa941cdaeb1e9b10be272de2079dc*6W-gvL58VbZsK3uKd8-JQw*ohYGs99UwcTWBpYFrTt0XnfDXvxmYQTg71eJ7QiMVZFH1nbW9tyCV_IIPQrzGz3y**8eeefd92eb0dcc4d132410f3556971424881551309a007f7cf905f29e5def644*_7a5iccaZM7zrBpWcT1yFMDvwDlFhZUwEruvFnDURCw"
+  },
+  {
+    "domain": "glints.com",
+    "expirationDate": 1762921603.613989,
+    "hostOnly": true,
+    "httpOnly": false,
+    "name": "device_id",
+    "path": "/",
+    "sameSite": "lax",
+    "secure": false,
+    "session": false,
+    "storeId": null,
+    "value": "86bae031-9ddd-4c53-8c2d-4adee1dd3709"
+  },
+  {
+    "domain": "glints.com",
+    "expirationDate": 1760941139,
+    "hostOnly": true,
+    "httpOnly": false,
+    "name": "glints_tracking_id",
+    "path": "/",
+    "sameSite": null,
+    "secure": false,
+    "session": false,
+    "storeId": null,
+    "value": "cf233e9b-db59-4c4c-8385-b85347225861"
+  },
+  {
+    "domain": "glints.com",
+    "expirationDate": 1776492227,
+    "hostOnly": true,
+    "httpOnly": false,
+    "name": "g_state",
+    "path": "/",
+    "sameSite": null,
+    "secure": false,
+    "session": false,
+    "storeId": null,
+    "value": "{\"i_l\":0,\"i_ll\":1760940223095}"
+  },
+  {
+    "domain": "glints.com",
+    "hostOnly": true,
+    "httpOnly": false,
+    "name": "traceInfo",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": true,
+    "session": true,
+    "storeId": null,
+    "value": "%7B%22expInfo%22%3A%22mgtExperimentWebFYPMultRetrievals%3Abase%2CmgtDstExperimentRecmdApplication%3Abase_0210_decay_3%2CmgtDstExperimentRecmdPaidJob%3Aexp_2_1206%2CmgtDstExperimentRecmdConversionRate%3Agroup_10_0812%2CmgtDstExpSalaryWeight%3Aexp_0619_w3%2CmgtDstExpUserTrafficControlByScore%3Aexperiment%2CmgtDstExpFYPJobType%3Abase_0828%2CmgtDstExpFYPAge%3Aexp_0830_w2%2CmgtMobExperimentJobCardUI%3Aexp_new_1227%2CmgtOneTapApplyVIPJobs%3AB%22%2C%22requestId%22%3A%22b62837e6d3c3aa17ad0fec0a46d0a8e2%22%7D"
+  },
+  {
+    "domain": "glints.com",
+    "expirationDate": 1760942033,
+    "hostOnly": true,
+    "httpOnly": false,
+    "name": "builderSessionId",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": true,
+    "session": false,
+    "storeId": null,
+    "value": "42d7cb9b15ca4e2880b4c834cc5b3aff"
+  },
+  {
+    "domain": "glints.com",
+    "hostOnly": true,
+    "httpOnly": false,
+    "name": "currentJobID",
+    "path": "/",
+    "sameSite": null,
+    "secure": false,
+    "session": true,
+    "storeId": null,
+    "value": "f52fe588-0b8e-488b-bb85-35731e2fc656"
+  }
+]
