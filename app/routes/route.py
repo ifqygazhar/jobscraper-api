@@ -1,4 +1,5 @@
-from flask import Blueprint, request
+from fastapi import APIRouter, Query, HTTPException
+from typing import Optional
 from app.controllers.scrape_glints import scrape_glints
 from app.controllers.scrape_jobstreet import scrape_jobstreet
 from app.controllers.scrape_remoteok import scrape_remoteok
@@ -6,81 +7,141 @@ from app.controllers.scrape_indeed import scrape_indeed
 from app.controllers.scrape_disnaker_bandung import scrape_disnaker_bandung
 from app.controllers.scrape_devjobscanner import scrape_devjobscanner
 
-scraper_bp = Blueprint("scraper", __name__)
+# Buat router
+router = APIRouter(prefix="/api", tags=["Job Scrapers"])
 
 
-@scraper_bp.route("/glints", methods=["GET"])
-def scrape():
+@router.get("/glints")
+async def get_glints_jobs(
+    work: str = Query(default="Programmer", description="Job title or keywords"),
+    job_type: str = Query(
+        default="FULL_TIME",
+        description="Job type: FULL_TIME, PART_TIME, CONTRACT, INTERNSHIP",
+    ),
+    option_work: str = Query(
+        default="ONSITE", description="Work arrangement: ONSITE, HYBRID, REMOTE"
+    ),
+    location_id: str = Query(default="", description="Location ID"),
+    location_name: str = Query(
+        default="All+Cities/Provinces", description="Location name"
+    ),
+    page: str = Query(default="1", description="Page number"),
+):
+    """
+    Scrape job listings from Glints
+
+    - **work**: Job title or keywords to search
+    - **job_type**: Type of employment (FULL_TIME, PART_TIME, CONTRACT, INTERNSHIP)
+    - **option_work**: Work arrangement (ONSITE, HYBRID, REMOTE)
+    - **location_id**: ID of the location
+    - **location_name**: Name of the location
+    - **page**: Page number for pagination
+    """
     try:
-        # Mendapatkan parameter dari query string dengan default values
-        work = request.args.get("work", "Programmer")
-        job_type = request.args.get("job_type", "FULL_TIME")
-        option_work = request.args.get("option_work", "ONSITE")
-        page = request.args.get("page", "1")
-        location_id = request.args.get("location_id", "")  # Default kosong
-        location_name = request.args.get("location_name", "All+Cities/Provinces")
-
-        # Panggil fungsi scraping dengan parameter
         return scrape_glints(
             work, job_type, option_work, location_id, location_name, page
         )
     except Exception as e:
-        return {"status": "failed", "message": f"Error: {str(e)}"}, 500
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-@scraper_bp.route("/jobstreet", methods=["GET"])
-def scrape_jobstreet_route():
+@router.get("/jobstreet")
+async def get_jobstreet_jobs(
+    work: str = Query(default="Programmer", description="Job title or keywords"),
+    location: str = Query(default="Jakarta Raya", description="Job location"),
+    country: str = Query(default="id", description="Country code"),
+    page: str = Query(default="1", description="Page number"),
+):
+    """
+    Scrape job listings from JobStreet
+
+    - **work**: Job title or keywords to search
+    - **location**: City or region
+    - **country**: Country code (e.g., 'id' for Indonesia)
+    - **page**: Page number for pagination
+    """
     try:
-        work = request.args.get("work", "Programmer")
-        location = request.args.get("location", "Jakarta Raya")
-        country = request.args.get("country", "id")
-        page = request.args.get("page", "1")
-
         return scrape_jobstreet(work, location, country, page)
     except Exception as e:
-        return {"status": "failed", "message": f"Error: {str(e)}"}, 500
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-@scraper_bp.route("/remoteok", methods=["GET"])
-def scrape_remoteok_route():
+@router.get("/remoteok")
+async def get_remoteok_jobs(
+    keywords: str = Query(default="engineer", description="Job keywords"),
+    page: int = Query(default=1, ge=1, description="Page number (minimum 1)"),
+):
+    """
+    Scrape job listings from RemoteOK
+
+    - **keywords**: Job keywords to search
+    - **page**: Page number for pagination
+    """
     try:
-        keywords = request.args.get("keywords", "engineer")
-        page = int(request.args.get("page", "1"))
-
         return scrape_remoteok(keywords, page)
     except Exception as e:
-        return {"status": "failed", "message": f"Error: {str(e)}"}, 500
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-@scraper_bp.route("/indeed", methods=["GET"])
-def scrape_indeed_route():
+@router.get("/indeed")
+async def get_indeed_jobs(
+    keyword: str = Query(default="programmer", description="Job keywords"),
+    location: str = Query(default="", description="Job location"),
+    country: str = Query(default="id", description="Country code"),
+    page: str = Query(default="0", description="Page number"),
+):
+    """
+    Scrape job listings from Indeed
+
+    - **keyword**: Job keywords to search
+    - **location**: City or region
+    - **country**: Country code (e.g., 'id' for Indonesia)
+    - **page**: Page number for pagination
+    """
     try:
-        keyword = request.args.get("keyword", "programmer")
-        location = request.args.get("location", "")
-        country = request.args.get("country", "id")
-        page = request.args.get("page", "0")
-
         return scrape_indeed(keyword, location, country, page)
     except Exception as e:
-        return {"status": "failed", "message": f"Error: {str(e)}"}, 500
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-@scraper_bp.route("/disnaker_bandung", methods=["GET"])
-def scrape_disnaker_bandung_route():
+@router.get("/disnaker_bandung")
+async def get_disnaker_bandung_jobs(
+    page: str = Query(default="1", description="Page number"),
+):
+    """
+    Scrape job listings from Disnaker Bandung
+
+    - **page**: Page number for pagination
+    """
     try:
-        page = request.args.get("page", "1")
         return scrape_disnaker_bandung(page)
-
     except Exception as e:
-        return {"status": "failed", "message": f"Error: {str(e)}"}, 500
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-@scraper_bp.route("/devjobscanner", methods=["GET"])
-def scrape_devjobscanner_route():
+@router.get("/devjobscanner")
+async def get_devjobscanner_jobs(
+    keywords: str = Query(default="web developer", description="Job keywords"),
+    page: str = Query(default="1", description="Page number"),
+):
+    """
+    Scrape job listings from DevJobsScanner
+
+    - **keywords**: Job keywords to search
+    - **page**: Page number for pagination
+    """
     try:
-        keywords = request.args.get("keywords", "web developer")
-        page = request.args.get("page", "1")
-
         return scrape_devjobscanner(keywords, page)
     except Exception as e:
-        return {"status": "failed", "message": f"Error: {str(e)}"}, 500
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Health check endpoint
+@router.get("/health", tags=["Health"])
+async def health_check():
+    """Check if the API is running"""
+    return {
+        "status": "success",
+        "message": "Job Scraper API is running",
+        "version": "2.0.0",
+    }
