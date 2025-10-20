@@ -50,7 +50,7 @@ Root
 
 ### Docs Swagger
 
-You can access the API documentation at `http://127.0.0.1:5000/api/docs/`
+You can access the API documentation at `http://0.0.0.0:8000/docs/`
 
 ### Root
 
@@ -107,7 +107,7 @@ Stores singleton instances for libraries:
 
 2. The application will expose endpoints defined in the `routes` folder.
 
-Example : `GET http://127.0.0.1:5000/api/jobstreet?work=flutter`
+Example : `GET http://0.0.0.0:8000/api/jobstreet?work=flutter`
 
 3. Documentation About Endpoint Soon After All Done !
 
