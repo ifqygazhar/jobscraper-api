@@ -46,12 +46,12 @@ def scrape_disnaker_bandung(page="1"):
             )
 
             # Ekstrak tanggal
-            date_tag = job.find("p", style=re.compile(r"font-size:9px;"))
-            date = (
-                date_tag.get_text(strip=True).replace("\n", "").replace("\r", "")
-                if date_tag
-                else "N/A"
-            )
+            # date_tag = job.find("p", style=re.compile(r"font-size:9px;"))
+            # date = (
+            #     date_tag.get_text(strip=True).replace("\n", "").replace("\r", "")
+            #     if date_tag
+            #     else "N/A"
+            # )
 
             # Ekstrak link detail
             link_tag = job.find("a", class_="btn btn-sm btn-danger")
@@ -63,7 +63,6 @@ def scrape_disnaker_bandung(page="1"):
                 and company == "N/A"
                 and title == "N/A"
                 and location == "N/A"
-                and date == "N/A"
             ):
                 results.append(
                     {
@@ -71,7 +70,7 @@ def scrape_disnaker_bandung(page="1"):
                         "company_name": company,
                         "title": title,
                         "location": location,
-                        "date": date,
+                        "salary": "Klik open untuk info gaji",
                         "link": link,
                     }
                 )
