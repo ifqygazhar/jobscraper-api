@@ -43,9 +43,10 @@ def scrape_jobstreet_route():
 @scraper_bp.route("/remoteok", methods=["GET"])
 def scrape_remoteok_route():
     try:
-        keywords = request.args.get("keywords", "python")
+        keywords = request.args.get("keywords", "engineer")
+        page = int(request.args.get("page", "1"))
 
-        return scrape_remoteok(keywords)
+        return scrape_remoteok(keywords, page)
     except Exception as e:
         return {"status": "failed", "message": f"Error: {str(e)}"}, 500
 
@@ -71,4 +72,3 @@ def scrape_disnaker_bandung_route():
 
     except Exception as e:
         return {"status": "failed", "message": f"Error: {str(e)}"}, 500
-
