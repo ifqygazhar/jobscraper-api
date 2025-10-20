@@ -4,6 +4,7 @@ from app.controllers.scrape_jobstreet import scrape_jobstreet
 from app.controllers.scrape_remoteok import scrape_remoteok
 from app.controllers.scrape_indeed import scrape_indeed
 from app.controllers.scrape_disnaker_bandung import scrape_disnaker_bandung
+from app.controllers.scrape_devjobscanner import scrape_devjobscanner
 
 scraper_bp = Blueprint("scraper", __name__)
 
@@ -70,5 +71,16 @@ def scrape_disnaker_bandung_route():
         page = request.args.get("page", "1")
         return scrape_disnaker_bandung(page)
 
+    except Exception as e:
+        return {"status": "failed", "message": f"Error: {str(e)}"}, 500
+
+
+@scraper_bp.route("/devjobscanner", methods=["GET"])
+def scrape_devjobscanner_route():
+    try:
+        keywords = request.args.get("keywords", "web developer")
+        page = request.args.get("page", "1")
+
+        return scrape_devjobscanner(keywords, page)
     except Exception as e:
         return {"status": "failed", "message": f"Error: {str(e)}"}, 500
